@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+
+<script type="text/javascript">
+    $(function() {
+    	$('#datetimepicker1').datetimepicker();
+    	pickTime:false
+    });
+    $(function() {
+    	$('#datetimepicker2').datetimepicker();
+    	pickTime:false
+    });
+</script>
+<script type="text/javascript">
+   function Calculate(){
+	   var startDate= document.calculate.startDate.value;
+	   var endDate= document.calculate.endDate.value;
+	   if(startDate=="" || endDate==""){
+		   alert("Please Enter Proper Date");
+		   return false;
+	   }
+	   var aa = moment(startDate,'MM/DD/YYYY');
+	   var bb = moment(endDate,'MM/DD/YYYY');
+	   var days = bb.diff(aa,'days');
+	   if(days < 0) 
+		   document.calculate.difference.value="StartDate must be before EndDate";
+		else
+	  		 document.calculate.difference.value=days;
+   }
+</script>
+<form name = "calculate" onsubmit="return false">
+
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <div class="form-group">
+           <label >Start Date:</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" id="startDate"></input>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            
+             <div class="form-group">
+            <label > End Date:</label>
+                <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control" id="endDate"></input>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+       <button type="submit" onClick="Calculate()">Confirm</button><br/>
+       Difference in Date: 
+       <input tyoe="text" style="width: 300px;" name="difference" readonly="readonly">
+        </div>
+    </div>
+</div>
+</form>
+
+</body>
+</html>
+
